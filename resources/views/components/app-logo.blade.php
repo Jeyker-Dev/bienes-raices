@@ -1,6 +1,5 @@
-<div class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-    <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
-</div>
-<div class="ms-1 grid flex-1 text-start text-sm">
-    <span class="mb-0.5 truncate leading-none font-semibold">Laravel Starter Kit</span>
-</div>
+@props(['linkClass', 'iconClass'])
+
+<a href="{{ route('home') }}" class="{{ $linkClass }} max-h-10">
+    <img src="{{ asset('img/logo.svg') }}" alt="Logotipo de Bienes Raices" class="w-52 sm:w-62 md:w-72 {{ $iconClass }}">
+</a>
