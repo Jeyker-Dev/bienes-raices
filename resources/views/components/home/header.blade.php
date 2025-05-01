@@ -1,5 +1,5 @@
 <header class="bg-cover bg-center h-[40vh] lg:h-[55vh]" style="background-image: url('{{ asset('img/header.jpg') }}');">
-    <div class="w-11/12 lg:w-8/12 mx-auto h-full relative">
+    <div class="w-11/12 lg:w-9/12 xl:w-8/12 2xl:w-7/12 mx-auto h-full relative">
         <div class="flex justify-between items-start md:items-center absolute top-4 sm:top-8 lg:top-16 w-full">
             <x-app-logo linkClass="" iconClass=""/>
 

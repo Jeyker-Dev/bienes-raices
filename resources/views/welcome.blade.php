@@ -4,12 +4,11 @@
     @include('partials.head')
 </head>
 <body class="min-h-screen bg-white dark:bg-zinc-800">
+    <x-home.header />
 
-<x-home.header />
+    <x-home.more-about-us />
 
-<main>
 
-</main>
 
 @fluxScripts
 </body>

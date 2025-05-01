@@ -29,7 +29,7 @@
 
     <!-- Menu Desktop -->
     <div class="">
-        <nav class="hidden md:flex md:justify-between md:items-center md:gap-4">
+        <nav class="hidden md:flex md:justify-between md:items-center md:gap-4 lg:gap-8 xl:gap-14">
             @foreach($links as $link)
                 <x-general.link href="{{ $link['href'] }}" linkClass="{{ $linkClass }}">
                     {{ $link['text'] }}
