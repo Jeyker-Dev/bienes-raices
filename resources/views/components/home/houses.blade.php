@@ -79,4 +79,10 @@
             </x-general.card>
         @endforeach
     </div>
+
+    <div class="w-11/12 md:w-10/12 2xl:w-8/12 mx-auto my-4 flex justify-end">
+        <x-general.button buttonClass="bg-green-600 hover:bg-green-500">
+            Ver todas
+        </x-general.button>
+    </div>
 </div>
