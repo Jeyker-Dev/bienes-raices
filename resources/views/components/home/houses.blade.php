@@ -46,7 +46,8 @@
         Casas y Departamentos en Venta
     </x-general.subtitle>
 
-    <div class="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div
+        class="w-11/12 md:w-10/12 2xl:w-8/12 mx-auto justify-center place-items-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         @foreach($cards as $card)
             <x-general.card cardClass="">
                 <x-general.card.image containerClass="" imageSrc="{{ $card['imageSrc'] }}" imageClass=""/>
@@ -59,6 +60,10 @@
                     <x-general.card.text textClass="">
                         {{ $card['text'] }}
                     </x-general.card.text>
+
+                    <x-general.card.important-text textClass="text-green-600">
+                        $ 10000
+                    </x-general.card.important-text>
 
                     <div class="flex justify-between">
                         @foreach($icons as $icon)
