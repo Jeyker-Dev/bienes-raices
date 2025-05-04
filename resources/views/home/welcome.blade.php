@@ -6,6 +6,8 @@
     <x-home.houses />
 
     <x-home.find-us />
+
+    <x-home.our-blog />
 </x-layouts.public>
 
 
