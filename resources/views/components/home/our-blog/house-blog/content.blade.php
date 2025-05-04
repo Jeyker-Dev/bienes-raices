@@ -1,5 +1,5 @@
 @props(['contentClass' => ''])
 
-<div class="flex flex-col gap-4 w-3/5">
+<div class="flex flex-col gap-4 md:w-3/5">
     {{ $slot }}
 </div>
