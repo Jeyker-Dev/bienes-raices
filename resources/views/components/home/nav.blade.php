@@ -1,5 +1,3 @@
-@props([''])
-
 @php
     $linkClass = '';
     $links = [

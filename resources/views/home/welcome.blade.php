@@ -8,6 +8,8 @@
     <x-home.find-us />
 
     <x-home.our-blog />
+
+    <x-home.footer />
 </x-layouts.public>
 
 

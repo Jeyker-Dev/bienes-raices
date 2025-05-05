@@ -1,3 +1,3 @@
-@props(['imageClass' => ''])
+@props(['imageClass' => '', 'imageSrc' => ''])
 
-<img src="{{ asset('img/blog1.jpg') }}" alt="" class=" md:w-1/3 object-cover object-center {{ $imageClass }}">
+<img src="{{ asset($imageSrc) }}" alt="" class=" md:w-1/3 object-cover object-center {{ $imageClass }}">
