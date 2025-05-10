@@ -1,5 +1,5 @@
 @php
-    $rowClass = '';
+    $rowClass = 'text-center';
 
     $headers =
     [
@@ -32,6 +32,10 @@
 <x-layouts.app :title="__('Houses')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
 
+        <x-general.title titleClass="!text-black text-center p-4">
+            Administrador de Casas
+        </x-general.title>
+
         <x-general.table.body tableClass="">
                 <x-general.table.columns columnsClass="">
                     @foreach($headers as $header)
@@ -50,8 +54,8 @@
                         {{ $house['titulo'] }}
                     </x-general.table.row>
 
-                    <x-general.table.row rowClass="{{ $rowClass }}">
-                        <img src="{{ asset($house['imagen']) }}" alt="" class="w-10 h-10 object-cover object-center">
+                    <x-general.table.row rowClass="flex justify-center items-center {{ $rowClass }}">
+                        <img src="{{ asset($house['imagen']) }}" alt="" class="w-28 h-28 object-cover object-center">
                     </x-general.table.row>
 
                     <x-general.table.row rowClass="{{ $rowClass }}">
@@ -59,9 +63,15 @@
                     </x-general.table.row>
 
                     <x-general.table.row rowClass="{{ $rowClass }}">
-                       <x-general.button href="" buttonClass="">
-                           {{ $house['acciones'] }}
-                       </x-general.button>
+                        <flux:dropdown>
+                            <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
+
+                            <flux:menu>
+                                <flux:menu.item icon="plus">Crear</flux:menu.item>
+                                <flux:menu.item icon="arrow-path">Editar</flux:menu.item>
+                                <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
+                            </flux:menu>
+                        </flux:dropdown>
                     </x-general.table.row>
                 </x-general.table.rows>
             @endforeach

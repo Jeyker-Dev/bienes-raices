@@ -1,5 +1,5 @@
 @props(['rowClass' => ''])
 
-<td class="{{ $rowClass }}">
+<td class="p-4 {{ $rowClass }}">
     {{ $slot }}
 </td>
