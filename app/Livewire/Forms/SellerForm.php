@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Flux\Flux;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use App\Models\Seller;
@@ -20,5 +21,9 @@ class SellerForm extends Form
         $this->validate();
 
         Seller::create($this->all());
+
+        Flux::modals()->close();
+
+        $this->reset();
     }
 }

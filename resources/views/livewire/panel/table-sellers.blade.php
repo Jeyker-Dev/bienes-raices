@@ -19,10 +19,9 @@ new class extends Component {
 
     public function save(): void
     {
-        $this->form->store;
+        $this->form->store();
     }
 }; ?>
-
 
 @php
     $rowClass = 'text-center';
@@ -37,8 +36,14 @@ new class extends Component {
     ];
 @endphp
 
-
 <div>
+
+    <div class="flex justify-end my-4 md:w-10/12 lg:w-9/12 mx-auto">
+        <flux:modal.trigger name="create-seller">
+            <flux:button icon="plus">Crear</flux:button>
+        </flux:modal.trigger>
+    </div>
+
     <x-general.table.body tableClass="">
         <x-general.table.columns columnsClass="">
             @foreach($headers as $header)
@@ -70,9 +75,6 @@ new class extends Component {
                         <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
 
                         <flux:menu>
-                            <flux:modal.trigger name="edit-profile">
-                                <flux:menu.item icon="plus">Crear</flux:menu.item>
-                            </flux:modal.trigger>
                             <flux:menu.item icon="arrow-path">Editar</flux:menu.item>
                             <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
                         </flux:menu>
@@ -82,7 +84,11 @@ new class extends Component {
         @endforeach
     </x-general.table.body>
 
-    <flux:modal name="edit-profile" class="w-11/12">
+    <div class="mt-4">
+        {{ $sellers->links() }}
+    </div>
+
+    <flux:modal name="create-seller" class="w-11/12">
         <form wire:submit.prevent="save" class="w-full">
             <div class="space-y-6">
                 <div>
