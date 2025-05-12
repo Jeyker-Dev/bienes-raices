@@ -10,6 +10,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'panel.dashboard')->name('dashboard');
     Route::view('houses', 'panel.houses')->name('houses');
+    Route::view('sellers', 'panel.sellers')->name('sellers');
 });
 
 Route::middleware(['auth'])->group(function () {
