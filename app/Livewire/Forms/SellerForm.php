@@ -16,6 +16,8 @@ class SellerForm extends Form
     #[Validate('required|string')]
     public string $phone = '';
 
+    public ?Seller $seller;
+
     public function store():void
     {
         $this->validate();
@@ -25,5 +27,20 @@ class SellerForm extends Form
         Flux::modals()->close();
 
         $this->reset();
+    }
+
+    public function setSeller(Seller $seller): void
+    {
+        $this->seller = $seller;
+        $this->name = $seller->name;
+        $this->lastname = $seller->lastname;
+        $this->phone = $seller->phone;
+    }
+
+    public function update(): void
+    {
+        $this->validate();
+
+        $this->seller->update($this->all());
     }
 }

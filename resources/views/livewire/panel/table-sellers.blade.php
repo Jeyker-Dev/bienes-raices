@@ -4,9 +4,11 @@ use Livewire\Volt\Component;
 use App\Livewire\Forms\SellerForm;
 use App\Models\Seller;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 new class extends Component {
     public SellerForm $form;
+    public ?int $seller_id = null;
 
     use WithPagination;
 
@@ -17,8 +19,22 @@ new class extends Component {
         ];
     }
 
+    public function setSellerId(?int $id): void
+    {
+        $this->seller_id = $id;
+    }
+
+    public function unsetSellerId(): void
+    {
+        $this->seller_id = null;
+    }
+
     public function save(): void
     {
+        if ($this->seller_id) {
+            $this->form->update();
+        }
+
         $this->form->store();
     }
 }; ?>
@@ -37,13 +53,17 @@ new class extends Component {
 @endphp
 
 <div>
-
+    <!-- Modal Trigger -->
     <div class="flex justify-end my-4 md:w-10/12 lg:w-9/12 mx-auto">
-        <flux:modal.trigger name="create-seller">
-            <flux:button icon="plus">Crear</flux:button>
-        </flux:modal.trigger>
+        <x-general.modal.trigger
+        class=""
+        icon="plus"
+        text="Crear"
+        name="sellers-modal"
+        />
     </div>
 
+    <!-- Table -->
     <x-general.table.body tableClass="">
         <x-general.table.columns columnsClass="">
             @foreach($headers as $header)
@@ -75,7 +95,10 @@ new class extends Component {
                         <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
 
                         <flux:menu>
-                            <flux:menu.item icon="arrow-path">Editar</flux:menu.item>
+                            <flux:modal.trigger name="sellers-modal">
+                                <flux:menu.item icon="arrow-path" @click="$wire.setSellerId({{ $seller->id }})">Editar</flux:menu.item>
+                            </flux:modal.trigger>
+
                             <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
                         </flux:menu>
                     </flux:dropdown>
@@ -84,42 +107,40 @@ new class extends Component {
         @endforeach
     </x-general.table.body>
 
+    <!-- Pagination -->
     <div class="mt-4">
         {{ $sellers->links() }}
     </div>
 
-    <flux:modal name="create-seller" class="w-11/12">
-        <form wire:submit.prevent="save" class="w-full">
-            <div class="space-y-6">
-                <div>
-                    <flux:heading size="lg">Crear Vendedor</flux:heading>
-                    <flux:text class="mt-2">Agrega los datos del vendedor</flux:text>
-                </div>
+    <!-- Modal -->
+    <x-general.modal.body close="unsetSellerId" name="sellers-modal" submit="save" modalClass="w-full">
+        <x-general.modal.content >
+            <x-general.modal.title-text
+                title="{{ $seller_id ? 'Editar' : 'Crear' }} Vendedor"
+                text="Agrega los datos del vendedor"
+            />
 
-                <flux:input
-                    wire:model="form.name"
-                    label="Nombre"
-                    placeholder="Fernando"
-                />
+            <flux:input
+                wire:model="form.name"
+                label="Nombre"
+                placeholder="Fernando"
+            />
 
-                <flux:input
-                    wire:model="form.lastname"
-                    label="Apellido"
-                    placeholder="Rodriguez"
-                />
+            <flux:input
+                wire:model="form.lastname"
+                label="Apellido"
+                placeholder="Rodriguez"
+            />
 
-                <flux:input
-                    wire:model="form.phone"
-                    label="Telefono"
-                    placeholder="04245652392"
-                />
+            <flux:input
+                wire:model="form.phone"
+                label="Telefono"
+                placeholder="04245652392"
+            />
 
-                <div class="flex">
-                    <flux:spacer/>
-
-                    <flux:button type="submit" variant="primary">Crear Vendedor</flux:button>
-                </div>
-            </div>
-        </form>
-    </flux:modal>
+            <x-general.modal.buttons
+            buttonText="{{ $seller_id ? 'Editar' : 'Crear' }} Vendedor"
+            />
+        </x-general.modal.content>
+    </x-general.modal.body>
 </div>
