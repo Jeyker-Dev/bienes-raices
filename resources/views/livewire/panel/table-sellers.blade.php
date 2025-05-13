@@ -22,11 +22,14 @@ new class extends Component {
     public function setSellerId(?int $id): void
     {
         $this->seller_id = $id;
+        $seller = Seller::findOrFail($id);
+        $this->form->setSeller($seller);
     }
 
     public function unsetSellerId(): void
     {
         $this->seller_id = null;
+        $this->reset();
     }
 
     public function save(): void
