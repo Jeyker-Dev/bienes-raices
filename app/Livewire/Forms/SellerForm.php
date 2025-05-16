@@ -18,7 +18,15 @@ class SellerForm extends Form
 
     public ?Seller $seller;
 
-    public function store():void
+    public function setSeller(Seller $seller): void
+    {
+        $this->seller = $seller;
+        $this->name = $seller->name;
+        $this->lastname = $seller->lastname;
+        $this->phone = $seller->phone;
+    }
+
+    public function store(): void
     {
         $this->validate();
 
@@ -29,18 +37,21 @@ class SellerForm extends Form
         $this->reset();
     }
 
-    public function setSeller(Seller $seller): void
-    {
-        $this->seller = $seller;
-        $this->name = $seller->name;
-        $this->lastname = $seller->lastname;
-        $this->phone = $seller->phone;
-    }
-
     public function update(): void
     {
         $this->validate();
 
         $this->seller->update($this->all());
+
+        Flux::modals()->close();
+    }
+
+    public function delete(?int $id): void
+    {
+        $seller = Seller::findOrFail($id);
+
+        $seller->delete();
+
+        Flux::modals()->close();
     }
 }

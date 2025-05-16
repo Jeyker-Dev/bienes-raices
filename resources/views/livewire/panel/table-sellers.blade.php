@@ -32,13 +32,30 @@ new class extends Component {
         $this->reset();
     }
 
+    public function delete(?int $id): void
+    {
+        $this->form->delete($id);
+
+        $this->dispatch('toast', [
+            'title' => 'Eliminacion Completada!',
+            'text' => 'Vendedor eliminado correctamente.',
+            'icon' => 'success',
+        ]);
+    }
+
     public function save(): void
     {
-        if ($this->seller_id) {
+        if ($this->seller_id !== null) {
             $this->form->update();
-        }
+        } else {
+            $this->form->store();
 
-        $this->form->store();
+            $this->dispatch('toast', [
+                'title' => 'Datos guardados!',
+                'text' => 'Vendedor creado correctamente.',
+                'icon' => 'success',
+            ]);
+        }
     }
 }; ?>
 
@@ -102,11 +119,35 @@ new class extends Component {
                                 <flux:menu.item icon="arrow-path" @click="$wire.setSellerId({{ $seller->id }})">Editar</flux:menu.item>
                             </flux:modal.trigger>
 
-                            <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
+                            <flux:modal.trigger name="delete-sellers-{{ md5($seller->id) }}">
+                                <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
+                            </flux:modal.trigger>
                         </flux:menu>
                     </flux:dropdown>
                 </x-general.table.row>
             </x-general.table.rows>
+
+            <flux:modal wire:key="{{ $seller->id }}" name="delete-sellers-{{ md5($seller->id) }}" class="min-w-[22rem]">
+                <div class="space-y-6">
+                    <div>
+                        <flux:heading size="lg">Eliminar Vendedor</flux:heading>
+
+                        <flux:text class="mt-2">
+                            <p>Se eliminara el vendedor {{ $seller->name }}</p>
+                        </flux:text>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <flux:spacer />
+
+                        <flux:modal.close>
+                            <flux:button variant="ghost">Cancelar</flux:button>
+                        </flux:modal.close>
+
+                        <flux:button variant="danger" @click="$wire.delete({{ $seller->id }})">Eliminar vendedor</flux:button>
+                    </div>
+                </div>
+            </flux:modal>
         @endforeach
     </x-general.table.body>
 
@@ -115,7 +156,7 @@ new class extends Component {
         {{ $sellers->links() }}
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Form -->
     <x-general.modal.body close="unsetSellerId" name="sellers-modal" submit="save" modalClass="w-full">
         <x-general.modal.content >
             <x-general.modal.title-text
@@ -146,4 +187,6 @@ new class extends Component {
             />
         </x-general.modal.content>
     </x-general.modal.body>
+
+    <x-general.toast.body />
 </div>
