@@ -92,12 +92,12 @@ new class extends Component {
 @endphp
 
 <div>
-    <!-- Modal Trigger -->
-    <div class="flex justify-between my-4 md:w-10/12 lg:w-9/12 mx-auto">
+    <!-- Search Input and Modal Trigger -->
+    <div class="flex flex-col gap-y-8 sm:flex-row sm:justify-between my-4 md:w-10/12 lg:w-9/12 mx-auto">
         <livewire:utilities.search />
 
         <x-general.modal.trigger
-        class=""
+        class="max-w-2xs"
         icon="plus"
         text="Crear"
         name="sellers-modal"
