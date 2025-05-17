@@ -27,8 +27,9 @@ class HouseForm extends Form
     #[Validate('required')]
     public ?int $seller = null;
     public string $image_path = '';
-    protected House $house;
+    protected ?House $house = null;
     protected Filesystem $disk;
+    public ?int $house_id = null;
 
     public function boot(): void
     {
@@ -38,10 +39,12 @@ class HouseForm extends Form
     public function setHouse(?int $id): void
     {
         $house = House::findOrFail($id);
+        $this->house_id = $id;
 
         $this->house = $house;
         $this->title = $this->house->title;
         $this->price = $this->house->price;
+        $this->image_path = asset('storage/'.$this->house->image);
         $this->description = $this->house->description;
         $this->bedroom = $this->house->bedroom;
         $this->bath = $this->house->bath;
@@ -61,9 +64,38 @@ class HouseForm extends Form
 
     public function update()
     {
-        $this->validate();
+        $house = House::findOrFail($this->house_id);
+        $this->house = $house;
 
-        $this->seller->update($this->all());
+        $rules = [
+            'title' => 'required|string',
+            'price' => 'required',
+            'description' => 'required|string',
+            'bedroom' => 'required|int',
+            'bath' => 'required|int',
+            'seller' => 'required',
+        ];
+
+        if ($this->image) $rules['image'] = 'image';
+
+        $this->validate($rules);
+
+        if ($this->image) {
+            $this->disk->delete($this->house->image);
+            $this->disk->put('houses', $this->house->image);
+        } else {
+            $this->image_path = $this->house->image;
+        }
+
+        $this->house->update([
+            'title' => $this->title,
+            'price' => $this->price,
+            'image' => $this->image_path,
+            'description' => $this->description,
+            'bedroom' => $this->bedroom,
+            'bath' => $this->bath,
+            'seller_id' => $this->seller,
+        ]);
 
         Flux::modals()->close();
     }

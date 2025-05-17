@@ -166,6 +166,8 @@ new class extends Component {
 
             @if($this->form->image)
                 <img src="{{ $this->form->image->temporaryUrl() }}" alt="" class="w-64 h-64 object-cover object-center border border-black shadow-xl">
+            @elseif($this->form->image_path)
+                <img src="{{ $this->form->image_path }}" alt="" class="w-64 h-64 object-cover object-center border border-black shadow-xl">
             @endif
 
             <flux:textarea
