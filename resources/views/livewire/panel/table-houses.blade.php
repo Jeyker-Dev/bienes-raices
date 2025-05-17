@@ -21,6 +21,11 @@ new class extends Component {
         ];
     }
 
+    public function setHouseId(?int $id): void
+    {
+        $this->form->delete($id);
+    }
+
     public function unsetHouseId(): void
     {
         $this->house_id = null;
@@ -90,12 +95,36 @@ new class extends Component {
                         <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
 
                         <flux:menu>
-                            <flux:menu.item icon="arrow-path">Editar</flux:menu.item>
-                            <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
+                            <flux:modal.trigger name="houses-modal">
+                                <flux:menu.item icon="arrow-path">Editar</flux:menu.item>
+                            </flux:modal.trigger>
+                            <flux:modal.trigger name="delete-houses-{{ md5($house->id) }}">
+                                <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
+                            </flux:modal.trigger>
                         </flux:menu>
                     </flux:dropdown>
                 </x-general.table.row>
             </x-general.table.rows>
+
+            <flux:modal wire:key="{{ $house->id }}" name="delete-houses-{{ md5($house->id) }}" class="min-w-[22rem]">
+                <div class="space-y-6">
+                    <div>
+                        <flux:heading size="lg">Eliminar Casa</flux:heading>
+
+                        <flux:text class="mt-2">
+                            <p>Se eliminara la casa {{ $house->title }}</p>
+                        </flux:text>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <flux:modal.close>
+                            <flux:button variant="ghost">Cancelar</flux:button>
+                        </flux:modal.close>
+
+                        <flux:button variant="danger" @click="$wire.delete({{ $house->id }})">Eliminar Casa</flux:button>
+                    </div>
+                </div>
+            </flux:modal>
         @endforeach
     </x-general.table.body>
 

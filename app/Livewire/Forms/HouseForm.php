@@ -3,11 +3,11 @@
 namespace App\Livewire\Forms;
 
 use Flux\Flux;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use App\Models\House;
-use Livewire\WithFileUploads;
 
 class HouseForm extends Form
 {
@@ -26,14 +26,29 @@ class HouseForm extends Form
     #[Validate('required')]
     public ?int $seller = null;
     public string $image_path = '';
+    protected Filesystem $disk;
+
+    public function boot(): void
+    {
+        $this->disk = Storage::disk('local');
+    }
+
+    public function delete(?int $id): void
+    {
+        $house = House::findOrFail($id);
+
+        $house->delete();
+
+        $this->disk->delete($house->image);
+
+        Flux::modals()->close();
+    }
 
     public function store(): void
     {
         $this->validate();
 
-        $disk = Storage::disk('local');
-
-        $this->image_path = $disk->put('houses', $this->image);
+        $this->image_path = $this->disk->put('houses', $this->image);
 
         House::create([
             'title' => $this->title,
