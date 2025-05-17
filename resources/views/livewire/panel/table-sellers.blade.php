@@ -9,14 +9,25 @@ use Livewire\Attributes\On;
 new class extends Component {
     public SellerForm $form;
     public ?int $seller_id = null;
+    public string $search = '';
 
     use WithPagination;
 
     public function with(): array
     {
+
         return [
-            'sellers' => Seller::paginate(10),
+            'sellers' => Seller::where('name', 'like', '%'.$this->search.'%')
+                ->orWhere('lastname', 'like', '%'.$this->search.'%')
+                ->orWhere('phone', 'like', '%'.$this->search.'%')
+                ->paginate(10),
         ];
+    }
+
+    #[On('search-updated')]
+    public function searchUpdated(string $search): void
+    {
+        $this->search = $search;
     }
 
     public function setSellerId(?int $id): void
@@ -47,11 +58,17 @@ new class extends Component {
     {
         if ($this->seller_id !== null) {
             $this->form->update();
+
+            $this->dispatch('toast', [
+                'title' => 'Datos Actualizados!',
+                'text' => 'Vendedor actualizado correctamente',
+                'icon' => 'success',
+            ]);
         } else {
             $this->form->store();
 
             $this->dispatch('toast', [
-                'title' => 'Datos guardados!',
+                'title' => 'Datos Guardados!',
                 'text' => 'Vendedor creado correctamente.',
                 'icon' => 'success',
             ]);
@@ -74,7 +91,9 @@ new class extends Component {
 
 <div>
     <!-- Modal Trigger -->
-    <div class="flex justify-end my-4 md:w-10/12 lg:w-9/12 mx-auto">
+    <div class="flex justify-between my-4 md:w-10/12 lg:w-9/12 mx-auto">
+        <livewire:utilities.search />
+
         <x-general.modal.trigger
         class=""
         icon="plus"
