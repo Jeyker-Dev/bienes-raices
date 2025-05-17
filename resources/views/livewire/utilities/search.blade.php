@@ -12,5 +12,5 @@ new class extends Component {
 }; ?>
 
 <div>
-    <flux:input icon="magnifying-glass" placeholder="Search Sellers" clearable wire:model.live.debounce.500ms="search" class="icon-black" />
+    <flux:input icon="magnifying-glass" placeholder="Search Sellers" clearable wire:model.live.debounce.100ms="search" class="icon-black" />
 </div>

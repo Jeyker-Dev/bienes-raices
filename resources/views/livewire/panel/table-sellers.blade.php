@@ -20,6 +20,8 @@ new class extends Component {
             'sellers' => Seller::where('name', 'like', '%'.$this->search.'%')
                 ->orWhere('lastname', 'like', '%'.$this->search.'%')
                 ->orWhere('phone', 'like', '%'.$this->search.'%')
+                ->orWhere(Seller::raw("CONCAT(name, ' ', lastname)"), 'like', '%'.$this->search.'%')
+                ->orWhere(Seller::raw("CONCAT(name,'', lastname)"), 'like', '%'.$this->search.'%')
                 ->paginate(10),
         ];
     }
