@@ -23,17 +23,28 @@ new class extends Component {
 
     public function setHouseId(?int $id): void
     {
-        $this->form->delete($id);
+        $this->house_id = $id;
+        $this->form->setHouse($this->house_id);
     }
 
     public function unsetHouseId(): void
     {
         $this->house_id = null;
+        $this->form->reset();
+    }
+
+    public function delete(?int $id): void
+    {
+        $this->form->delete($id);
     }
 
     public function save(): void
     {
-        $this->form->store();
+        if ($this->house_id !== null) {
+            $this->form->update();
+        } else {
+            $this->form->store();
+        }
     }
 }; ?>
 
@@ -96,7 +107,7 @@ new class extends Component {
 
                         <flux:menu>
                             <flux:modal.trigger name="houses-modal">
-                                <flux:menu.item icon="arrow-path">Editar</flux:menu.item>
+                                <flux:menu.item icon="arrow-path" @click="$wire.setHouseId({{ $house->id }})">Editar</flux:menu.item>
                             </flux:modal.trigger>
                             <flux:modal.trigger name="delete-houses-{{ md5($house->id) }}">
                                 <flux:menu.item variant="danger" icon="trash">Eliminar</flux:menu.item>
@@ -152,6 +163,10 @@ new class extends Component {
                 wire:model="form.image"
                 type="file" label="Imagen"
             />
+
+            @if($this->form->image)
+                <img src="{{ $this->form->image->temporaryUrl() }}" alt="" class="w-64 h-64 object-cover object-center border border-black shadow-xl">
+            @endif
 
             <flux:textarea
                 label="Descripcion"
