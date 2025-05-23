@@ -2,19 +2,19 @@
     $linkClass = '';
     $links = [
             [
-              'href' => '#',
+              'href' => 'about-us',
               'text' => 'Nosotros',
             ],
             [
-              'href' => '#',
+              'href' => 'announcements',
               'text' => 'Anuncios',
             ],
             [
-              'href' => '#',
+              'href' => 'blog',
               'text' => 'Blog',
             ],
             [
-              'href' => '#',
+              'href' => 'contact',
               'text' => 'Contacto',
             ],
     ];

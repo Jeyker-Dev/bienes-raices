@@ -1,5 +1,5 @@
 <x-layouts.public>
-    <x-home.header />
+    <x-home.header-large />
 
     <x-home.more-about-us />
 
