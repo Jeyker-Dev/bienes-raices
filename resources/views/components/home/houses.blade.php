@@ -1,38 +1,7 @@
 @php
-    $cards =
-    [
-        [
-            'title' => 'Cabaña',
-            'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        A accusantium consectetur, error explicabo molestiae natus officia quae quidem quos vel?
-                        Consequuntur corporis ea ex, neque officia quis sapiente vel voluptates?',
-            'href' => '#',
-            'button_text' => 'Ver propiedad',
-            'imageSrc' => 'img/anuncio1.jpg',
-        ],
-        [
-            'title' => 'Cabaña',
-            'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        A accusantium consectetur, error explicabo molestiae natus officia quae quidem quos vel?
-                        Consequuntur corporis ea ex, neque officia quis sapiente vel voluptates?',
-            'href' => '#',
-            'button_text' => 'Ver propiedad',
-            'imageSrc' => 'img/anuncio1.jpg',
-        ],
-         [
-            'title' => 'Cabaña',
-            'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        A accusantium consectetur, error explicabo molestiae natus officia quae quidem quos vel?
-                        Consequuntur corporis ea ex, neque officia quis sapiente vel voluptates?',
-            'href' => '#',
-            'button_text' => 'Ver propiedad',
-            'imageSrc' => 'img/anuncio1.jpg',
-        ],
-    ];
-
+    $houses = \App\Models\House::take(3)->get();
     $icon_text_class = '';
     $icon_class = '';
-
     $icons =
     [
         'img/icono_wc.svg',
@@ -48,21 +17,21 @@
 
     <div
         class="w-11/12 md:w-10/12 2xl:w-8/12 mx-auto justify-center place-items-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        @foreach($cards as $card)
+        @foreach($houses as $house)
             <x-general.card cardClass="">
-                <x-general.card.image containerClass="" imageSrc="{{ $card['imageSrc'] }}" imageClass=""/>
+                <x-general.card.image containerClass="" imageSrc="storage/{{ $house->image }}" imageClass=""/>
 
                 <x-general.card.body>
                     <x-general.card.title titleClass="">
-                        {{ $card['title'] }}
+                        {{ $house->title }}
                     </x-general.card.title>
 
                     <x-general.card.text textClass="">
-                        {{ $card['text'] }}
+                        {{ $house->description }}
                     </x-general.card.text>
 
                     <x-general.card.important-text textClass="text-green-600">
-                        $ 10000
+                        $ {{ $house->price }}
                     </x-general.card.important-text>
 
                     <div class="flex justify-between">
@@ -72,8 +41,8 @@
                         @endforeach
                     </div>
 
-                    <x-general.button href="{{ $card['href'] }}" buttonClass="!bg-amber-600 hover:!bg-amber-500 w-full">
-                        {{ $card['button_text'] }}
+                    <x-general.button href="#" buttonClass="!bg-amber-600 hover:!bg-amber-500 w-full">
+                        Ver Propiedad
                     </x-general.button>
                 </x-general.card.body>
             </x-general.card>

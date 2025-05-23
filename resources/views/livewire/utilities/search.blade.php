@@ -4,6 +4,7 @@ use Livewire\Volt\Component;
 
 new class extends Component {
     public string $search = '';
+    public ?string $inputPlaceholder = '';
 
     public function updatedSearch(): void
     {
@@ -12,5 +13,5 @@ new class extends Component {
 }; ?>
 
 <div>
-    <flux:input icon="magnifying-glass" placeholder="Buscar Vendedores" clearable wire:model.live.debounce.100ms="search" class="icon-black max-w-2xs" />
+    <flux:input icon="magnifying-glass" placeholder="{{ $inputPlaceholder }}" clearable wire:model.live.debounce.100ms="search" class="icon-black max-w-2xs" />
 </div>

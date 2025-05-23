@@ -5,20 +5,29 @@ use App\Livewire\Forms\HouseForm;
 use App\Models\House;
 use App\Models\Seller;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\On;
 
 
 new class extends Component {
     public HouseForm $form;
     public ?int $house_id = null;
+    public string $search = '';
 
     use WithFileUploads;
 
     public function with(): array
     {
         return [
-            'houses' => House::all(),
+            'houses' => House::where('title', 'like', '%'.$this->search.'%')
+            ->paginate(10),
             'sellers' => Seller::all(),
         ];
+    }
+
+    #[On('search-updated')]
+    public function searchUpdated(string $search)
+    {
+        $this->search = $search;
     }
 
     public function setHouseId(?int $id): void
@@ -83,7 +92,7 @@ new class extends Component {
 <div>
     <!-- Search Input and Modal Trigger -->
     <div class="flex flex-col gap-y-8 sm:flex-row sm:justify-between my-4 md:w-10/12 lg:w-9/12 mx-auto">
-        <livewire:utilities.search />
+        <livewire:utilities.search inputPlaceholder="Buscar Casas" />
 
         <x-general.modal.trigger
             class="max-w-2xs"
@@ -157,6 +166,11 @@ new class extends Component {
             </flux:modal>
         @endforeach
     </x-general.table.body>
+
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{ $houses->links() }}
+    </div>
 
     <!-- Modal Form -->
     <x-general.modal.body close="unsetHouseId" name="houses-modal" submit="save" modalClass="w-full">
