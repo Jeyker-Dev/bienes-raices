@@ -209,5 +209,6 @@ new class extends Component {
         </x-general.modal.content>
     </x-general.modal.body>
 
+    <!-- Toast -->
     <x-general.toast.body />
 </div>

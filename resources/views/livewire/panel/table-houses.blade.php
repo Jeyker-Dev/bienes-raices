@@ -36,14 +36,32 @@ new class extends Component {
     public function delete(?int $id): void
     {
         $this->form->delete($id);
+
+        $this->dispatch('toast', [
+            'title' => 'Eliminacion Completada!',
+            'text' => 'La csa se ha eliminado correctamente.',
+            'icon' => 'success',
+        ]);
     }
 
     public function save(): void
     {
         if ($this->house_id !== null) {
             $this->form->update();
+
+            $this->dispatch('toast', [
+                'title' => 'Actualizacion Completada!',
+                'text' => 'La casa se ha actualizado correctamente.',
+                'icon' => 'success',
+            ]);
         } else {
             $this->form->store();
+
+            $this->dispatch('toast', [
+                'title' => 'Creacion Completada!',
+                'text' => 'La casa se ha creado correctamente.',
+                'icon' => 'success',
+            ]);
         }
     }
 }; ?>
@@ -75,6 +93,7 @@ new class extends Component {
         />
     </div>
 
+    <!-- House Table -->
     <x-general.table.body tableClass="">
         <x-general.table.columns columnsClass="">
             @foreach($headers as $header)
@@ -200,4 +219,7 @@ new class extends Component {
             />
         </x-general.modal.content>
     </x-general.modal.body>
+
+    <!-- Toast -->
+    <x-general.toast.body />
 </div>
