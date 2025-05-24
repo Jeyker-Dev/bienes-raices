@@ -1,9 +1,13 @@
+@php
+    $all = null;
+@endphp
+
 <x-layouts.public>
     <x-home.header-large />
 
     <x-home.more-about-us />
 
-    <x-home.houses />
+    <x-home.houses :all="$all" />
 
     <x-home.find-us />
 

@@ -1,5 +1,9 @@
 @php
-    $houses = \App\Models\House::take(3)->get();
+    if (!$all) {
+            $houses = \App\Models\House::take(3)->get();
+    }
+
+    $houses = \App\Models\House::all();
     $icon_text_class = '';
     $icon_class = '';
 @endphp
@@ -48,7 +52,8 @@
                         @endforeach
                     </div>
 
-                    <x-general.button href="{{ route('announcement', $house) }}" buttonClass="!bg-amber-600 hover:!bg-amber-500 block text-center">
+                    <x-general.button href="{{ route('announcement', $house) }}"
+                                      buttonClass="!bg-amber-600 hover:!bg-amber-500 block text-center">
                         Ver Propiedad
                     </x-general.button>
                 </x-general.card.body>
@@ -56,9 +61,11 @@
         @endforeach
     </div>
 
-    <div class="w-11/12 md:w-10/12 2xl:w-8/12 mx-auto my-4 flex justify-end">
-        <x-general.button href="{{ route('announcements') }}" buttonClass="bg-green-600 hover:bg-green-500">
-            Ver todas
-        </x-general.button>
-    </div>
+    @if(!$all)
+        <div class="w-11/12 md:w-10/12 2xl:w-8/12 mx-auto my-4 flex justify-end">
+            <x-general.button href="{{ route('announcements') }}" buttonClass="bg-green-600 hover:bg-green-500">
+                Ver todas
+            </x-general.button>
+        </div>
+    @endif
 </div>
