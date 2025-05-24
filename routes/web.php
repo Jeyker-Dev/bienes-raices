@@ -19,6 +19,10 @@ Route::get('/announcements', function () {
     return view('home.announcements');
 })->name('announcements');
 
+Route::get('/announcements/{announcement}', function () {
+    return view('home.announcement');
+})->name('announcement');
+
 Route::get('/contact', function () {
     return view('home.contact');
 })->name('contact');
