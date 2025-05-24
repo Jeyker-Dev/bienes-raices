@@ -2,12 +2,6 @@
     $houses = \App\Models\House::take(3)->get();
     $icon_text_class = '';
     $icon_class = '';
-    $icons =
-    [
-        'img/icono_wc.svg',
-        'img/icono_estacionamiento.svg',
-        'img/icono_dormitorio.svg',
-    ];
 @endphp
 
 <div>
@@ -34,10 +28,23 @@
                         $ {{ $house->price }}
                     </x-general.card.important-text>
 
+                    @php
+                        $house_features = [
+                            ['icon' => 'img/icono_wc.svg', 'value' => $house->bath],
+                            ['icon' => 'img/icono_estacionamiento.svg', 'value' => $house->parking],
+                            ['icon' => 'img/icono_dormitorio.svg', 'value' => $house->bedroom],
+                        ];
+                    @endphp
+
                     <div class="flex justify-between">
-                        @foreach($icons as $icon)
-                            <x-general.card.icon containerClass="" iconSrc="{{ $icon }}" iconText="1"
-                                                 iconClass="{{ $icon_class }}" iconTextClass="{{ $icon_text_class }}"/>
+                        @foreach($house_features as $feature)
+                            <x-general.card.icon
+                                containerClass=""
+                                iconSrc="{{ $feature['icon'] }}"
+                                iconText="{{ $feature['value'] }}"
+                                iconClass="{{ $icon_class }}"
+                                iconTextClass="{{ $icon_text_class }}"
+                            />
                         @endforeach
                     </div>
 
