@@ -1,9 +1,10 @@
 @php
     if (!$all) {
             $houses = \App\Models\House::take(3)->get();
+    } else {
+         $houses = \App\Models\House::all();
     }
 
-    $houses = \App\Models\House::all();
     $icon_text_class = '';
     $icon_class = '';
 @endphp
@@ -35,7 +36,7 @@
                     @php
                         $house_features = [
                             ['icon' => 'img/icono_wc.svg', 'value' => $house->bath],
-                            ['icon' => 'img/icono_estacionamiento.svg', 'value' => $house->parking],
+                            ['icon' => 'img/icono_estacionamiento.svg', 'value' => $house->garage],
                             ['icon' => 'img/icono_dormitorio.svg', 'value' => $house->bedroom],
                         ];
                     @endphp
