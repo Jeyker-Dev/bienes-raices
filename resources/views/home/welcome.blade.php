@@ -11,7 +11,7 @@
 
     <x-home.find-us />
 
-    <x-home.our-blog />
+    <x-home.our-blog :all="$all" />
 
     <x-home.footer />
 </x-layouts.public>
