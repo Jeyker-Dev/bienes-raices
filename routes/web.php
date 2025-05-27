@@ -19,8 +19,8 @@ Route::get('/announcements', function () {
     return view('home.announcements');
 })->name('announcements');
 
-Route::get('/announcements/{announcement}', function () {
-    return view('home.announcement');
+Route::get('/announcements/{announcement}', function (\App\Models\House $announcement) {
+    return view('home.announcement', compact('announcement'));
 })->name('announcement');
 
 Route::get('/contact', function () {
