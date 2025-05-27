@@ -221,6 +221,12 @@ new class extends Component {
                 placeholder="4"
             />
 
+            <flux:input
+                wire:model="form.garage"
+                label="Estacionamiento"
+                placeholder="4"
+            />
+
             <flux:select wire:model="form.seller">
                 <flux:select.option value="" hidden selected>Escojer Vendedor</flux:select.option>
                 @foreach($sellers as $seller)

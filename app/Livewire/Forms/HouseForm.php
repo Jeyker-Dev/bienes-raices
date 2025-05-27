@@ -24,6 +24,8 @@ class HouseForm extends Form
     public ?int $bedroom = null;
     #[Validate('required|int')]
     public ?int $bath = null;
+    #[Validate('required|int')]
+    public ?int $garage = null;
     #[Validate('required')]
     public ?int $seller = null;
     public string $image_path = '';
@@ -48,6 +50,7 @@ class HouseForm extends Form
         $this->description = $this->house->description;
         $this->bedroom = $this->house->bedroom;
         $this->bath = $this->house->bath;
+        $this->garage = $this->house->garage;
         $this->seller = $this->house->seller_id;
     }
 
@@ -73,6 +76,7 @@ class HouseForm extends Form
             'description' => 'required|string',
             'bedroom' => 'required|int',
             'bath' => 'required|int',
+            'garage' => 'required|int',
             'seller' => 'required',
         ];
 
@@ -82,7 +86,7 @@ class HouseForm extends Form
 
         if ($this->image) {
             $this->disk->delete($this->house->image);
-            $this->disk->put('houses', $this->house->image);
+            $this->image_path = $this->disk->put('houses', $this->image);
         } else {
             $this->image_path = $this->house->image;
         }
@@ -94,6 +98,7 @@ class HouseForm extends Form
             'description' => $this->description,
             'bedroom' => $this->bedroom,
             'bath' => $this->bath,
+            'garage' => $this->garage,
             'seller_id' => $this->seller,
         ]);
 
@@ -113,6 +118,7 @@ class HouseForm extends Form
             'description' => $this->description,
             'bedroom' => $this->bedroom,
             'bath' => $this->bath,
+            'garage' => $this->garage,
             'seller_id' => $this->seller,
         ]);
 

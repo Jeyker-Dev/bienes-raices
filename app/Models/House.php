@@ -14,6 +14,7 @@ class House extends Model
         'description',
         'bedroom',
         'bath',
+        'garage',
         'seller_id',
     ];
 
