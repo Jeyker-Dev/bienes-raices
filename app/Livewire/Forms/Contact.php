@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Mail\ContactForm;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -21,9 +22,7 @@ class Contact extends Form
     {
         $this->validate();
 
-        dd($this->all());
-
-        Mail::to('mendozajeyker1178@gmail.com')->send($this->all());
+        Mail::to('mendozajeyker1178@gmail.com')->send(new ContactForm($this->all()));
 
         $this->reset();
     }

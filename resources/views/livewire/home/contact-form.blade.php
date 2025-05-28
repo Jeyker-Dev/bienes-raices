@@ -8,6 +8,12 @@ new class extends Component {
     public function save(): void
     {
         $this->form->send();
+
+        $this->dispatch('toast', [
+            'title' => 'Mensaje Enviado!',
+            'text' => 'El mensaje se ha enviado correctamente.',
+            'icon' => 'success',
+        ]);
     }
 }; ?>
 
@@ -17,4 +23,6 @@ new class extends Component {
     </x-general.title>
 
     <x-home.contact.form />
+
+    <x-general.toast.body />
 </div>
