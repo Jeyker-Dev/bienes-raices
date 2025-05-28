@@ -12,45 +12,49 @@
                 <form wire:submit.prevent="save" class="mt-16">
                     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                         <div>
-                            <label for="first-name" class="block text-sm/6 font-semibold text-gray-900">Nombre</label>
                             <div class="mt-2.5">
-                                <input type="text" name="first-name" id="first-name" autocomplete="given-name"
-                                       class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                                <flux:input
+                                    wire:model="form.name"
+                                    label="Nombre"
+                                    placeholder="Manuel"
+                                />
                             </div>
                         </div>
                         <div>
-                            <label for="last-name" class="block text-sm/6 font-semibold text-gray-900">Apellido</label>
                             <div class="mt-2.5">
-                                <input type="text" name="last-name" id="last-name" autocomplete="name"
-                                       class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                                <flux:input
+                                    wire:model="form.lastname"
+                                    label="Apellido"
+                                    placeholder="Mendoza"
+                                />
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="email" class="block text-sm/6 font-semibold text-gray-900">Email</label>
                             <div class="mt-2.5">
-                                <input id="email" name="email" type="email" autocomplete="email"
-                                       class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                                <flux:input
+                                    wire:model="form.email"
+                                    label="Email"
+                                    type="email"
+                                    placeholder="manuelmendoza@gmail.com"
+                                />
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <div class="flex justify-between text-sm/6">
-                                <label for="phone" class="block font-semibold text-gray-900">Telefono</label>
-                                <p id="phone-description" class="text-gray-400">Optional</p>
-                            </div>
                             <div class="mt-2.5">
-                                <input type="tel" name="phone" id="phone" autocomplete="tel"
-                                       aria-describedby="phone-description"
-                                       class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                                <flux:input
+                                    wire:model="form.phone"
+                                    label="Telefono (Opcional)"
+                                    placeholder="04245652392"
+                                />
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <div class="flex justify-between text-sm/6">
-                                <label for="message" class="block text-sm/6 font-semibold text-gray-900">En que podemos
-                                    ayudarte?</label>
-                            </div>
                             <div class="mt-2.5">
-                                <textarea id="message" name="message" rows="4" aria-describedby="message-description"
-                                          class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"></textarea>
+                                <flux:textarea
+                                    label="En que podemos ayudarte?"
+                                    placeholder="Coloca tu mensaje"
+                                    wire:model="form.message"
+                                />
                             </div>
                         </div>
                     </div>
