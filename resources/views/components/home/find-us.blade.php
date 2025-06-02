@@ -8,7 +8,7 @@
             Llena el formulario de contacto y un asesor se pondra en contacto contigo a la brevedad
         </p>
 
-        <x-general.button buttonClass="!bg-amber-600 hover:!bg-amber-500">
+        <x-general.button href="{{ route('contact') }}" buttonClass="!bg-amber-600 hover:!bg-amber-500">
             Contactanós
         </x-general.button>
     </div>

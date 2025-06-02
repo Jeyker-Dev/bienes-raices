@@ -122,7 +122,7 @@ new class extends Component {
                 </x-general.table.row>
 
                 <x-general.table.row rowClass="flex justify-center items-center {{ $rowClass }}">
-                    <img src="{{ asset('storage/'.$house->image) }}" alt="" class="w-28 h-28 object-cover object-center">
+                    <img src="{{ $house->image_url }}" alt="" class="w-28 h-28 object-cover object-center">
                 </x-general.table.row>
 
                 <x-general.table.row rowClass="{{ $rowClass }}">

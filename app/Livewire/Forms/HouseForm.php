@@ -30,12 +30,14 @@ class HouseForm extends Form
     public ?int $seller = null;
     public string $image_path = '';
     protected ?House $house = null;
-    protected Filesystem $disk;
+    protected string $disk;
+    protected Filesystem $storage;
     public ?int $house_id = null;
 
     public function boot(): void
     {
-        $this->disk = Storage::disk('local');
+        $this->disk = config('filesystems.default');
+        $this->storage = Storage::disk($this->disk);
     }
 
     public function setHouse(?int $id): void
@@ -46,7 +48,7 @@ class HouseForm extends Form
         $this->house = $house;
         $this->title = $this->house->title;
         $this->price = $this->house->price;
-        $this->image_path = asset('storage/'.$this->house->image);
+        $this->image_path = $this->house->image_url;
         $this->description = $this->house->description;
         $this->bedroom = $this->house->bedroom;
         $this->bath = $this->house->bath;
@@ -85,8 +87,8 @@ class HouseForm extends Form
         $this->validate($rules);
 
         if ($this->image) {
-            $this->disk->delete($this->house->image);
-            $this->image_path = $this->disk->put('houses', $this->image);
+            $this->storage->delete($this->house->image);
+            $this->image_path = $this->storage->put('houses', $this->image);
         } else {
             $this->image_path = $this->house->image;
         }
@@ -109,7 +111,7 @@ class HouseForm extends Form
     {
         $this->validate();
 
-        $this->image_path = $this->disk->put('houses', $this->image);
+        $this->image_path = $this->storage->put('houses', $this->image);
 
         House::create([
             'title' => $this->title,
@@ -123,7 +125,5 @@ class HouseForm extends Form
         ]);
 
         Flux::modals()->close();
-
-        $this->reset();
     }
 }
