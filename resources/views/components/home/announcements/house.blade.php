@@ -9,7 +9,7 @@
             {{ $announcement->title }}
         </x-general.card.title>
 
-        <x-general.card.image containerClass="" imageSrc="storage/{{ $announcement->image }}" imageClass=""/>
+        <x-general.card.image containerClass="" imageSrc="{{ $announcement->image_url }}" imageClass=""/>
 
         <x-general.card.body>
             <x-general.card.important-text textClass="text-green-600">

@@ -18,7 +18,7 @@
         class="w-11/12 md:w-10/12 2xl:w-8/12 mx-auto justify-center place-items-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         @foreach($houses as $house)
             <x-general.card cardClass="">
-                <x-general.card.image containerClass="" imageSrc="storage/{{ $house->image }}" imageClass=""/>
+                <x-general.card.image containerClass="" imageSrc="{{ $house->image_url }}" imageClass=""/>
 
                 <x-general.card.body>
                     <x-general.card.title titleClass="">
